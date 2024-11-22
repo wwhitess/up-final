@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${modelType == 'add' ? 'Добавление записи' : 'Редактирование записи'}"></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1 th:text="${modelType == 'add' ? 'Добавление записи' : 'Редактирование записи'}"></h1>
+
+<form th:action="@{${modelType == 'add' ? '/' + modelName + '/add' : '/' + modelName + '/update'}}"
+      th:object="${entity}" method="post">
+
+    <div th:if="${modelName == 'customers'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Имя:</label>
+        <input type="text" id="name" th:field="*{name}" required/>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" th:field="*{phone}" />
+
+        <label for="email">Почта:</label>
+        <input type="text" id="email" th:field="*{email}" />
+
+        <label for="address">Почта:</label>
+        <input type="text" id="address" th:field="*{address}" />
+    </div>
+
+    <div th:if="${modelName == 'inventory'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="vehicle">Автомобиль:</label>
+        <select id="vehicle" th:field="*{vehicle}">
+            <option th:each="vehicle : ${vehicles}"
+                    th:value="${vehicle.id}"
+                    th:text="${vehicle.model}"
+                    th:selected="${vehicle.id == entity.vehicle?.id}">
+            </option>
+        </select>
+
+        <label for="location">Локация:</label>
+        <input type="text" id="location" th:field="*{location}" />
+
+        <label for="quantity">Колличество:</label>
+        <input type="number" id="quantity" th:field="*{quantity}" />
+
+    </div>
+
+    <div th:if="${modelName == 'manufacturers'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Название:</label>
+        <input type="text" id="name" th:field="*{name}" />
+
+        <label for="country">Страна:</label>
+        <input type="text" id="country" th:field="*{country}" />
+    </div>
+
+    <div th:if="${modelName == 'orders'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="customer">Клиент:</label>
+        <select id="customer" th:field="*{customer}">
+            <option th:each="customer : ${customers}"
+                    th:value="${customer.id}"
+                    th:text="${customer.name}"
+                    th:selected="${customer.id == entity.customer?.id}">
+            </option>
+        </select>
+    </div>
+
+    <div th:if="${modelName == 'order_details'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="order">Заказ:</label>
+        <select id="order" th:field="*{order}">
+            <option th:each="order : ${orders}"
+                    th:value="${order.id}"
+                    th:text="${order.customer}"
+                    th:selected="${order.id == entity.order?.id}">
+            </option>
+        </select>
+
+        <label for="vehicle">Авто:</label>
+        <select id="vehicle" th:field="*{vehicle}">
+            <option th:each="vehicle : ${vehicles}"
+                    th:value="${vehicle.id}"
+                    th:text="${vehicle.model}"
+                    th:selected="${vehicle.id == entity.vehicle?.id}">
+            </option>
+        </select>
+
+        <label for="quantity">Колличество:</label>
+        <input type="number" id="quantity" th:field="*{quantity}" />
+
+        <label for="totalPrice">Цена:</label>
+        <input type="number" id="totalPrice" th:field="*{totalPrice}" />
+    </div>
+
+    <div th:if="${modelName == 'roles'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="name">Название:</label>
+        <input type="text" id="name" th:field="*{name}" />
+    </div>
+
+    <div th:if="${modelName == 'users'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" th:field="*{username}" />
+
+        <label for="password">Пароль:</label>
+        <input type="text" id="password" th:field="*{password}" />
+
+        <label for="role">Роль:</label>
+        <select id="role" th:field="*{role}">
+            <option th:each="role : ${roles}"
+                    th:value="${role.id}"
+                    th:text="${role.name}"
+                    th:selected="${role.id == entity.role?.id}">
+            </option>
+        </select>
+    </div>
+
+    <div th:if="${modelName == 'vehicles'}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="model">Модель:</label>
+        <input type="text" id="model" th:field="*{model}" />
+
+        <label for="manufacturer">Производитель:</label>
+        <select id="manufacturer" th:field="*{manufacturer}">
+            <option value="" th:selected="*{manufacturer == null}">Выберите производителя</option>
+
+            <option th:each="manufacturer : ${manufacturers}"
+                    th:value="${manufacturer.id}"
+                    th:text="${manufacturer.name}"
+                    th:selected="${manufacturer.id == entity.manufacturer?.id}">
+            </option>
+        </select>
+
+
+        <label for="price">Цена:</label>
+        <input type="number" id="price" th:field="*{price}" />
+
+        <label for="year">Год:</label>
+        <input type="number" id="year" th:field="*{year}" />
+
+        <label for="stockQuantity">Колличество:</label>
+        <input type="number" id="stockQuantity" th:field="*{stockQuantity}" />
+    </div>
+
+    <div>
+        <button type="submit" th:text="${modelType == 'add' ? 'Добавить' : 'Сохранить'}"></button>
+    </div>
+</form>
+
+<a href="/" class="btn">Назад</a>
+</body>
+</html>

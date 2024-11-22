@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главное меню</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Главное меню</h1>
+<div class="container">
+
+    <div th:if="${role == 'ROLE_USER'}">
+        <a th:href="@{'/vehicles/view'}" class="btn">Просмотр Автомобилей</a>
+    </div>
+
+    <div th:if="${role == 'ROLE_MANAGER'}">
+        <a th:href="@{'/customers/add'}" class="btn">Добавить Клиента</a>
+        <a th:href="@{'/customers/view'}" class="btn">Просмотр Клиентов</a>
+
+        <a th:href="@{'/inventory/add'}" class="btn">Добавить Инвентарь</a>
+        <a th:href="@{'/inventory/view'}" class="btn">Просмотр Инвентаря</a>
+
+        <a th:href="@{'/manufacturers/add'}" class="btn">Добавить Производителя</a>
+        <a th:href="@{'/manufacturers/view'}" class="btn">Просмотр Производителей</a>
+
+        <a th:href="@{'/orders/add'}" class="btn">Добавить Заказ</a>
+        <a th:href="@{'/orders/view'}" class="btn">Просмотр Заказов</a>
+
+        <a th:href="@{'/order_details/add'}" class="btn">Добавить детали заказа</a>
+        <a th:href="@{'/order_details/view'}" class="btn">Просмотр деталей заказов</a>
+
+        <a th:href="@{'/vehicles/add'}" class="btn">Добавить автомобиль</a>
+        <a th:href="@{'/vehicles/view'}" class="btn">Просмотр Автомобилей</a>
+    </div>
+
+    <div th:if="${role == 'ROLE_ADMIN'}">
+        <a th:href="@{'/roles/add'}" class="btn">Добавить Роль</a>
+        <a th:href="@{'/roles/view'}" class="btn">Просмотр Ролей</a>
+
+        <a th:href="@{'/users/add'}" class="btn">Добавить Пользователя</a>
+        <a th:href="@{'/users/view'}" class="btn">Просмотр Пользователей</a>
+    </div>
+
+    <form action="/logout" method="post">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+</body>
+</html>

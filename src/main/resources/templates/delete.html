@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Удаление записи</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Подтверждение удаления</h1>
+
+<p>Вы уверены, что хотите удалить эту запись?</p>
+
+<div th:if="${modelName == 'customers'}">
+
+</div>
+
+<div th:if="${modelName == 'inventory'}">
+
+</div>
+
+<div th:if="${modelName == 'manufacturers'}">
+
+</div>
+
+
+<div th:if="${modelName == 'orders'}">
+
+</div>
+
+<div th:if="${modelName == 'order_details'}">
+
+</div>
+
+<div th:if="${modelName == 'roles'}">
+
+</div>
+
+<div th:if="${modelName == 'users'}">
+
+</div>
+
+<div th:if="${modelName == 'vehicles'}">
+
+</div>
+
+
+<form th:action="@{/{modelName}/delete/{id}(id=${entity.id}, modelName=${modelName})}" method="post">
+    <button type="submit">Удалить</button>
+    <a href="/" class="btn">Отмена</a>
+</form>
+
+</body>
+</html>

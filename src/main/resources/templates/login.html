@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вход</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="form-container">
+    <h2>Вход</h2>
+    <form th:action="@{/login}" method="post" class="form">
+        <div class="input-group">
+            <label for="username">Логин:</label>
+            <input type="text" id="username" name="username" required placeholder="Введите логин" />
+        </div>
+        <div class="input-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required placeholder="Введите пароль" />
+        </div>
+        <button type="submit" class="btn">Войти</button>
+    </form>
+    <div class="form-footer">
+        <a href="/registration" class="link">Нет аккаунта? Зарегистрироваться</a>
+    </div>
+</div>
+</body>
+</html>

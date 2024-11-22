@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Просмотр записей</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1 th:text="'Записи ' + ${modelName}"></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+
+    <th th:if="${modelName == 'customers'}">Имя</th>
+    <th th:if="${modelName == 'customers'}">Телефон</th>
+    <th th:if="${modelName == 'customers'}">Почта</th>
+    <th th:if="${modelName == 'customers'}">Адрес</th>
+
+    <th th:if="${modelName == 'inventory'}">Автомобиль</th>
+    <th th:if="${modelName == 'inventory'}">Локация</th>
+    <th th:if="${modelName == 'inventory'}">Колличество</th>
+
+    <th th:if="${modelName == 'manufacturers'}">Название</th>
+    <th th:if="${modelName == 'manufacturers'}">Страна</th>
+
+    <th th:if="${modelName == 'orders'}">Клиент</th>
+    <th th:if="${modelName == 'orders'}">Дата</th>
+
+    <th th:if="${modelName == 'order_details'}">Заказ</th>
+    <th th:if="${modelName == 'order_details'}">Авто</th>
+    <th th:if="${modelName == 'order_details'}">Колличество</th>
+    <th th:if="${modelName == 'order_details'}">Цена</th>
+
+    <th th:if="${modelName == 'roles'}">Название</th>
+
+    <th th:if="${modelName == 'users'}">Имя пользователя</th>
+    <th th:if="${modelName == 'users'}">Пароль</th>
+    <th th:if="${modelName == 'users'}">Роль</th>
+
+    <th th:if="${modelName == 'vehicles'}">Модель</th>
+    <th th:if="${modelName == 'vehicles'}">Производство</th>
+    <th th:if="${modelName == 'vehicles'}">Цена</th>
+    <th th:if="${modelName == 'vehicles'}">Год</th>
+    <th th:if="${modelName == 'vehicles'}">Колличество</th>
+
+    <th>Действия</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="entity : ${entities}">
+    <td th:text="${entity.id}"></td>
+
+    <td th:if="${modelName == 'customers'}" th:text="${entity.name}"></td>
+    <td th:if="${modelName == 'customers'}" th:text="${entity.phone}"></td>
+    <td th:if="${modelName == 'customers'}" th:text="${entity.email}"></td>
+    <td th:if="${modelName == 'customers'}" th:text="${entity.address}"></td>
+
+    <td th:if="${modelName == 'inventory'}">
+      <span th:each="vehicle : ${entity.vehicle}" th:text="${vehicle.model}">Авто</span>
+    </td>
+    <td th:if="${modelName == 'inventory'}" th:text="${entity.location}"></td>
+    <td th:if="${modelName == 'inventory'}" th:text="${entity.quantity}"></td>
+
+    <td th:if="${modelName == 'manufacturers'}" th:text="${entity.name}"></td>
+    <td th:if="${modelName == 'manufacturers'}" th:text="${entity.country}"></td>
+
+    <td th:if="${modelName == 'orders'}" th:text="${entity.customer != null ? entity.customer.name : 'Без клиента'}"></td>
+    <td th:if="${modelName == 'orders'}" th:text="${entity.orderDate}"></td>
+
+    <td th:if="${modelName == 'order_details'}">
+      <span th:each="order : ${entity.order}" th:text="${order.customer.name}">Клиент</span>
+    </td>
+    <td th:if="${modelName == 'order_details'}">
+      <span th:each="vehicle : ${entity.vehicle}" th:text="${vehicle.model}">Авто</span>
+    </td>
+    <td th:if="${modelName == 'order_details'}" th:text="${entity.quantity}"></td>
+    <td th:if="${modelName == 'order_details'}" th:text="${entity.totalPrice}"></td>
+
+    <td th:if="${modelName == 'roles'}" th:text="${entity.name}"></td>
+
+    <td th:if="${modelName == 'users'}" th:text="${entity.username}"></td>
+    <td th:if="${modelName == 'users'}" th:text="${entity.password}"></td>
+    <td th:if="${modelName == 'users'}">
+      <span th:each="role : ${entity.role}" th:text="${role.name}">Роль</span>
+    </td>
+
+    <td th:if="${modelName == 'vehicles'}" th:text="${entity.model}"></td>
+    <td th:if="${modelName == 'vehicles'}">
+      <span th:each="manufacturer : ${entity.manufacturer}" th:text="${manufacturer.name}">Производство</span>
+    </td>
+    <td th:if="${modelName == 'vehicles'}" th:text="${entity.price}"></td>
+    <td th:if="${modelName == 'vehicles'}" th:text="${entity.year}"></td>
+    <td th:if="${modelName == 'vehicles'}" th:text="${entity.stockQuantity}"></td>
+
+    <td>
+      <a th:href="@{'/' + ${modelName} + '/update/' + ${entity.id}}">Изменить</a> |
+      <a th:href="@{'/' + ${modelName} + '/delete/' + ${entity.id}}">Удалить</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<a th:href="@{'/' + ${modelName} + '/add'}" class="btn">Добавить новую запись</a>
+<a href="/" class="btn">Назад</a>
+</body>
+</html>
